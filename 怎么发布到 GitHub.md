@@ -111,3 +111,69 @@ dsh plugin --profile desktop add link:D:\path\to\dsh-douyin-scroll
 1. **README 顶部加一句免责**：「仅供个人学习，自动化操作可能违反平台协议，账号风险自负」——已写在 README 里，保持。
 2. **开 Issues 模板**（可选）：一个问题模板 + 一个功能请求模板，省得别人只发「不工作」。
 3. **打 `good first issue` 标签**：把「视觉多待选位」「评分制挑选」这类计划项拆成 issue，比写在 CHANGELOG 里更显眼。
+
+---
+
+# 9. 发第二版（以后每次发版都照这个顺序）
+
+上面第 1–5 节讲的是**首次**发布。之后再发版，顺序不能乱，下面每一条都是踩过的坑。
+
+## 9.1 五步
+
+```powershell
+# ① 改代码 + 改版本号（package.json 的 version）+ 写 CHANGELOG.md 顶部一节
+# ② 先提交、先推 main
+git add -A
+git commit -m "1.4.15：……"
+git push
+
+# ③ 从 HEAD 重新打包（别用旧包！）
+#    注意：排除 docs/images 和 .gitignore，否则包会从 115KB 涨到 3MB
+tar -czf dsh-douyin-scroll-1.4.15.tgz -C .stage package
+tar -a -cf dsh-douyin-scroll-1.4.15-clean.zip -C .stage dsh-douyin-scroll
+# ④ tag 一定在 push main 之后打
+git tag v1.4.15
+git push origin v1.4.15
+# ⑤ 网页 Releases → Draft a new release → 选 v1.4.15 → 拖附件 → 正文写清这版改了什么
+```
+
+## 9.2 四条铁律
+
+1. **已经发布过的 tag 不要 `push -f` 重写。**
+   挪 tag 会让 Release 指向别的提交，附件位置/说明会错乱（真机上就这么丢过一次附件）。文档小改就**只推 main**，不碰 tag。
+
+2. **附件名用 ASCII。**
+   中文名的附件（比如 `一键装到本机.cmd`）传上去会被 GitHub 改叫 `default.cmd`，于是正文里写的文件名和实际对不上。所以脚本叫 `install-one-click.cmd`。
+
+3. **同一个 Release 里不能有同名附件。**
+   想换包必须先点右侧 **×** 删掉旧的，再传新的；否则页面只给一句 `Something went really wrong, and we can't process that file.`（不是网络问题，是重名）。
+
+4. **附件跟着代码走。**
+   只要源码/文档变了就重新打包；包里的 `INSTALL-怎么装.md`、`README.md` 是打进包里的，不重打就会出现「下载的包里文档是旧的」。
+
+## 9.3 发完怎么验（三条命令，别靠眼睛）
+
+```powershell
+# ① 远端 main / tag 是否指向你刚推的提交
+git ls-remote origin main refs/tags/v1.4.15
+
+# ② 附件列表 + 每个附件的 sha256（GitHub 自己算的）
+#    把返回里的 digest 和本地 (Get-FileHash 文件 -Algorithm SHA256).Hash 对比
+curl "https://api.github.com/repos/Xia28zhi/dsh-douyin-scroll/releases/expanded_assets/v1.4.15"
+
+# ③ 这版是不是「最新版本」
+curl "https://api.github.com/repos/Xia28zhi/dsh-douyin-scroll/releases/latest"
+```
+
+**正文里的命令块别手敲**：从 `INSTALL-怎么装.md` 里整段复制，避免出现 `--profile` 被写成「--配置文件」这种（浏览器页面翻译也会造成这种错觉，存进去的内容是好的，Ctrl+点翻译图标关掉即可）。
+
+## 9.4 小抄：本地路径
+
+| 东西 | 位置 |
+| --- | --- |
+| 仓库（也是要上传的源码） | `E:\AI生成产物、新建任务和工作空间\harness\ds-github\dsh-douyin-scroll\` |
+| 发布用附件（不进 git） | `E:\AI生成产物、新建任务和工作空间\harness\ds-github\` |
+| 运行中的插件（真机在用的） | `E:\DeepseekHarness\plugins\dsh-douyin-scroll\` |
+| 插件数据（配置/日报/待发件箱） | `$DSH_HOME\douyin-duty\` |
+
+> 改完运行目录的代码，**必须重启一次 DSH** 才生效（host 与 client 都是启动时加载的）。
