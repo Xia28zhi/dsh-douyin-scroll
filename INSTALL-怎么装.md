@@ -1,47 +1,74 @@
-# 装之前先看这三行
+# 怎么装（三种，选一种就行）
 
-1. 需要 **DSH 桌面版**（≥ 0.1.7）和 **Edge 或 Chrome**（有一个就行；不用装 Chromium、不用装 playwright）。
-2. 装上之后 **必须重启一次 DSH**，否则设置里根本不会出现「刷抖音」。
-3. 第一次用要**扫码登录**抖音，那一轮的"登录态"存在 `$DSH_HOME/douyin-duty/browser/`，以后不用再登。
+装之前先确认两件事：**DSH 桌面版 ≥ 0.1.7**，机器上有 **Edge 或 Chrome**（有一个就行；不用装 Chromium、不用装 playwright）。
+
+装完**一定要重启一次 dsh**，设置页里才会出现「刷抖音」。
+
+## Release 页面上的附件都是什么
+
+| 附件 | 是什么 | 给谁 |
+| --- | --- | --- |
+| `dsh-douyin-scroll-1.4.14.tgz` | npm 风格 tarball（108 KB，里面是 `package/…`） | **装插件最稳的一种，推荐** |
+| `dsh-douyin-scroll-1.4.14-clean.zip` | 脱敏源码包（30 个文件，含 `docs/` 踩坑记录 + `proof/` 证据脚本） | 想读代码 / 发给别人 |
+| `dsh-douyin-scroll-1.4.14-full-clean.zip` | 脱敏完整版（46 个文件：上面这些 + 两个旧版备份目录） | 自己备份 / 换机 / 看完整结构 |
+| `一键装到本机.cmd` | 双击就装（走下面 ②） | 懒人 |
+
+> ⚠️ 同一台机器**别装两遍**：插件 id 是 `dsh-douyin-scroll`，装第二份会顶掉第一份（配置和日报不受影响，它们在 `$DSH_HOME/douyin-duty`）。
+
+> `Source code (zip / tar.gz)` 是 GitHub 自动打包的**仓库源码**，跟上面的 tgz 不是一回事，别拿它当安装包。
 
 ---
 
-## 一、装
-
-把这个 `dsh-douyin-scroll` 文件夹放到一个**不会被挪走**的地方（比如 `D:\plugins\dsh-douyin-scroll`），然后在命令行里：
+## ① 从 GitHub 直接装（最省事）
 
 ```bat
-dsh plugin --profile desktop add link:D:\plugins\dsh-douyin-scroll
+dsh plugin --profile desktop add github:Xia28zhi/dsh-douyin-scroll
 ```
 
-> `--profile` 后面填你**真正在用的**那个 profile（桌面版一般是 `desktop`；不确定就先 `dsh plugin --profile desktop list` 看看有没有别的）。
-> 国内网络如果卡在 pnpm 拉包上，加一句 `--registry=https://registry.npmmirror.com`。
+需要机器上有 `git`；没有 git 就用 ② 或 ③。
 
-装完 **重启 DSH**。
+## ② 用下载的 tarball 装（推荐，不依赖 git）
 
-## 二、第一次跑
+```bat
+dsh plugin --profile desktop add "E:\完整路径\dsh-douyin-scroll-1.4.14.tgz" --registry=https://registry.npmmirror.com
+```
 
-1. 打开 **设置 → 刷抖音**。
-2. 点 **「登录抖音」** —— 会开一个浏览器窗口，在里面扫码登录（这个窗口别手动关，插件要靠它）。
-3. 点 **「测一下」** —— 它会真跑一遍：登录 / 搜索 / 热榜 / 关注 / 截帧，最后告诉你哪一项不行。
-4. 在「偏好」里填 **关键词**（一行一个，`,` `、` `/` 空格都能分隔），勾上要的来源。
-5. 回「日常」点 **「现在跑一轮」**，跑完 `$DSH_HOME/douyin-duty/out/<日期>.md` 就是日报。
+`--profile` 填你**真在用的**那个（桌面版一般就是 `desktop`，老版 Web 是 `web`）。
+国内拉依赖要带 `--registry=https://registry.npmmirror.com`，否则会卡在 npm 官方源。
 
-## 三、默认关着的那几个开关（别急着开）
+## ③ 用目录装（想改代码走这个）
 
-| 开关 | 为什么默认关 |
-| --- | --- |
-| 自动收藏 | 会动你的账号 |
-| 评论 / @ 某人 | 会**替你说话**，而且发出去就撤不回 |
-| 私聊 / 群分享 | 同上，而且是发给别人的 |
+```bat
+dsh plugin --profile desktop add link:"E:\完整路径\dsh-douyin-scroll" --registry=https://registry.npmmirror.com
+```
 
-要用就自己开，并且先想清楚「一天最多几条」。想让它只把草稿写进「待发件箱」由你批准，就把 **发件模式** 设成 `review`（默认就是这个）。
+`link:` 是指向目录的，**别删这个目录**，删了插件就没了。
+只拿到 `.zip`、又不想用命令行的，先解压成 `dsh-douyin-scroll\` 目录，再按这条装。
 
-视觉模型那一栏可以**留空**：留空就走本机 OCR + 页面文字，不花钱；要填就填 OpenAI 兼容接口（如智谱 `https://open.bigmodel.cn/api/paas/v4`）+ key + 模型名。
+---
 
-## 四、数据在哪 / 怎么卸
+## 一键装（Windows）
 
-- 数据（配置、日报、截图、待发件箱、登录态）：`$DSH_HOME/douyin-duty/`（Windows 一般是 `C:\Users\<你>\.dsh\douyin-duty`）。删掉这个目录 = 回到全新。
-- 卸载：`dsh plugin --profile desktop remove dsh-douyin-scroll`，再删掉上面那个数据目录。
+把 `一键装到本机.cmd` 和 `dsh-douyin-scroll-1.4.14.tgz` **放在同一个目录**，双击 `.cmd` 即可。
+它会：找包 → 检查 PATH 里有没有 `dsh` → 按 profile `desktop` 装 → 提示你重启。
+如果提示「PATH 里没有 dsh」，脚本会把完整的绝对路径命令打出来，复制执行就行。
 
-有问题先看 `$DSH_HOME/douyin-duty/duty.log` 的最后几十行，那里写得比界面上细。
+---
+
+## 装完第一次怎么用
+
+1. **重启 DSH**（不重启，设置里不会出现「刷抖音」）。
+2. 设置 → **刷抖音** → 点「**登录抖音**」，在弹出来的浏览器里扫码（登录态存在 `$DSH_HOME/douyin-duty/browser/`，以后不用再登）。
+3. 点「**测一下**」，它会真跑一遍登录 / 搜索 / 热榜 / 关注 / 截帧，直接告诉你行不行。
+4. 「偏好」里填关键词、勾来源；回「日常」点「**现在跑一轮**」。
+5. 日报在 `$DSH_HOME/douyin-duty/out/<日期>.md`。
+
+默认关着：自动收藏、评论 @、私聊、群分享 —— 这些是**拿你的号说话**，要开自己开。
+
+## 卸载
+
+```bat
+dsh plugin --profile desktop remove dsh-douyin-scroll --config.registry=https://registry.npmmirror.com
+```
+
+再删 `$DSH_HOME/douyin-duty` 就是回到全新。

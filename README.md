@@ -58,14 +58,17 @@
 ---
 ## 装
 
-```bash
-  ```bash
-  dsh plugin --profile web add link:<本目录>        # 本地开发（改代码立即生效，重启 dsh 即可）
-  dsh plugin --profile web add github:Xia28zhi/dsh-douyin-scroll     # 分发
-  ```
-```
+三种，选一种。装完**一定重启一次 dsh**，设置页里才会出现「刷抖音」。
 
-> 桌面版 DSH（NEXT / 0.2.x）请换成你自己在用的 profile 名，比如 `--profile desktop`。 ⚠️ 装完**一定要重启 dsh**，设置页里才会出现「刷抖音」。
+| 你手上是什么 | 命令 |
+| --- | --- |
+| 想直接装最新版 | `dsh plugin --profile desktop add github:Xia28zhi/dsh-douyin-scroll` |
+| 从 Release 下了 `dsh-douyin-scroll-1.4.14.tgz`（推荐，最稳） | `dsh plugin --profile desktop add "E:\完整路径\dsh-douyin-scroll-1.4.14.tgz" --registry=https://registry.npmmirror.com` |
+| 下了 `*-clean.zip`，或想改代码 | 解压出 `dsh-douyin-scroll\` 目录，再 `dsh plugin --profile desktop add link:"E:\完整路径\dsh-douyin-scroll"` |
+
+> `--profile` 换成你**真在用**的那个（桌面版一般就是 `desktop`，老版 Web 是 `web`）。`link:` 指向目录，**别删那个目录**。
+> 国内拉依赖要带 `--registry=https://registry.npmmirror.com`。
+> 更细的说明（含「只有 zip 没有命令行」「一键装 .cmd」「卸载」）：见 [INSTALL-怎么装.md](./INSTALL-怎么装.md)。
 
 进 **设置 → 刷抖音**：
 
