@@ -1,4 +1,4 @@
-﻿# 怎么发布到 GitHub
+# 怎么发布到 GitHub
 
 这个目录（`ds-github\`）已经是一个**可以直接推上去的仓库雏形**。下面是照着做就行的步骤。
 
@@ -49,7 +49,7 @@ cd .\dsh-douyin-scroll
 git init -b main
 git add .
 git commit -m "dsh-douyin-scroll 1.4.14：每日刷抖音 → 日报 + 评论@ + 分享"
-git remote add origin https://github.com/<你的用户名>/dsh-douyin-scroll.git
+git remote add origin https://github.com/Xia28zhi/dsh-douyin-scroll.git
 ```
 
 > 本机 git 是 MinGit，之前遇到过 schannel 吊销检查报错，如果 `push` 报 `CRYPT_E_REVOCATION_OFFLINE`：
@@ -87,7 +87,7 @@ gh release create v1.4.14 dsh-douyin-scroll-1.4.14.tgz dsh-douyin-scroll-1.4.14-
 
 ```powershell
 # ① 从 GitHub 装（推荐，能跟版本）
-dsh plugin --profile desktop add github:<用户名>/dsh-douyin-scroll
+dsh plugin --profile desktop add github:Xia28zhi/dsh-douyin-scroll
 
 # ② 装本地 tarball
 dsh plugin --profile desktop add .\dsh-douyin-scroll-1.4.14.tgz

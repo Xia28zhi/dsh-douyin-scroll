@@ -42,7 +42,7 @@
 ```bash
   ```bash
   dsh plugin --profile web add link:<本目录>        # 本地开发（改代码立即生效，重启 dsh 即可）
-  dsh plugin --profile web add github:<你的仓库>     # 分发
+  dsh plugin --profile web add github:Xia28zhi/dsh-douyin-scroll     # 分发
   ```
 ```
 
