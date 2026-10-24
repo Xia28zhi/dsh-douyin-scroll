@@ -1,0 +1,19 @@
+# ============================================================================
+# dsh-douyin-scroll —— DSH bundle patch（插件**自带**的挂载声明）
+# ============================================================================
+# 装上之后，profile 只要在 `dsh.profile.bundles` 里列出本包名即生效，
+# 不用手改 profile 自己的 cordis.patch.yml：
+#
+#   dsh plugin --profile web add dsh-douyin-scroll            （npm）
+#   dsh plugin --profile web add github:<你的仓库>             （github）
+#   dsh plugin --profile web add link:<你本地这个目录>          （本地开发）
+#
+# ⚠️ 装完**必须重启一次 dsh**（bundle 在进程启动时组装）。
+# ============================================================================
+
+- insert:
+    - id: douyin-scroll
+      name: dsh-douyin-scroll
+      config:
+        # 真正的用户配置在插件自己的 config.json 里（设置页可改），这里只放默认值
+        enabled: true
