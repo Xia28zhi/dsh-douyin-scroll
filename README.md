@@ -1,5 +1,10 @@
 # 刷抖音 · dsh-douyin-scroll
 
+[![release](https://img.shields.io/github/v/release/Xia28zhi/dsh-douyin-scroll?label=release&color=blue)](https://github.com/Xia28zhi/dsh-douyin-scroll/releases)
+[![license](https://img.shields.io/github/license/Xia28zhi/dsh-douyin-scroll)](./LICENSE)
+[![dsh](https://img.shields.io/badge/dsh-%E2%89%A50.1.7-555)](#装)
+[![node](https://img.shields.io/badge/node-%E2%89%A522-3c873a)](https://nodejs.org/)
+
 > DSH 插件：每天替你刷一轮抖音 —— 按关键词 / 关注 / 热榜 / 指定博主去刷，**截画面看内容**，挑出值得的写成日报。 你收到的每一条，都是它先看过一遍的。
 
 **先看三行**
@@ -31,6 +36,20 @@
 **产出什么**
 
 - `out/<日期>.md` 日报：每条含「为什么值得」+「它自己的一句话」+「画面里看到的」+ 链接。
+
+  长这样（示例，内容是编的，格式是真的）：
+
+  ```markdown
+  ## 今天刷了 34 条，挑出 3 条
+
+  ### 74xxxxxxxxxxxxxxxx · 用 200 行把 CDP 玩明白了
+  **作者** 某某 · 06:12 · ❤ 1.2万 💬 340 ⭐ 890
+
+  - **为什么值得**：把协议层讲清楚了，不是念文档。
+  - **它自己的一句话**：「你不需要 playwright，浏览器本来就是可以被远程操控的。」
+  - **画面里看到的**：白板画了 WebSocket 帧结构，讲了 Target 和 Session 的关系。
+  - https://www.douyin.com/video/74xxxxxxxxxxxxxxxx
+  ```
 
 - 可选**自动收藏**、可选**评论 @ 你**（都要你自己开）。
 
