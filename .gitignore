@@ -1,0 +1,17 @@
+# 依赖与产物
+node_modules/
+*.log
+*.log.*
+
+# 本地备份（含旧版代码，只留自己机器上）
+.bak-*/
+.bak-*
+
+# 发布物（由 Release 分发，不进 git）
+*.zip
+*.tgz
+
+# 个人现场截图（含好友昵称/头像，只在本地留证）
+docs/images/
+.probe/
+.probe-at/
