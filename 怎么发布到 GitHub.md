@@ -18,7 +18,7 @@ ds-github\
 ├─ dsh-douyin-scroll-1.4.14.tgz      ← 装插件用的 tarball（发 Release，不进 git）
 ├─ dsh-douyin-scroll-1.4.14-clean.zip   ← 小白包（发 Release，不进 git）
 ├─ dsh-douyin-scroll-1.4.14-full-clean.zip ← 脱敏完整版（发 Release，不进 git）
-├─ 一键装到本机.cmd / 怎么装.md        ← 给用户看的（可以一起推）
+├─ install-one-click.cmd / 怎么装.md        ← 给用户看的（可以一起推）
 ├─ .gitignore
 └─ 怎么发布到 GitHub.md（本文件）
 ```

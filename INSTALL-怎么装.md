@@ -11,7 +11,7 @@
 | `dsh-douyin-scroll-1.4.14.tgz` | npm 风格 tarball（108 KB，里面是 `package/…`） | **装插件最稳的一种，推荐** |
 | `dsh-douyin-scroll-1.4.14-clean.zip` | 脱敏源码包（30 个文件，含 `docs/` 踩坑记录 + `proof/` 证据脚本） | 想读代码 / 发给别人 |
 | `dsh-douyin-scroll-1.4.14-full-clean.zip` | 脱敏完整版（46 个文件：上面这些 + 两个旧版备份目录） | 自己备份 / 换机 / 看完整结构 |
-| `一键装到本机.cmd` | 双击就装（走下面 ②） | 懒人 |
+| `install-one-click.cmd` | 双击就装（走下面 ②） | 懒人 / 不想敲命令 |
 
 > ⚠️ 同一台机器**别装两遍**：插件 id 是 `dsh-douyin-scroll`，装第二份会顶掉第一份（配置和日报不受影响，它们在 `$DSH_HOME/douyin-duty`）。
 
@@ -49,7 +49,8 @@ dsh plugin --profile desktop add link:"E:\完整路径\dsh-douyin-scroll" --regi
 
 ## 一键装（Windows）
 
-把 `一键装到本机.cmd` 和 `dsh-douyin-scroll-1.4.14.tgz` **放在同一个目录**，双击 `.cmd` 即可。
+把 `install-one-click.cmd` 和 `dsh-douyin-scroll-1.4.14.tgz` **放在同一个目录**，双击 `.cmd` 即可。
+也可以把 tgz **直接拖到 `.cmd` 上**；脚本还会在「同目录 → 上级目录 → 下载 → 桌面」里自动找 `dsh-douyin-scroll-*.tgz`。
 它会：找包 → 检查 PATH 里有没有 `dsh` → 按 profile `desktop` 装 → 提示你重启。
 如果提示「PATH 里没有 dsh」，脚本会把完整的绝对路径命令打出来，复制执行就行。
 
